@@ -11,14 +11,14 @@ node {
         withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: '459bf397-3910-4c22-8d0b-55107eadcbb5',
         usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASSWORD']]) {
 
-          sh 'sudo docker login --username $DOCKER_USER --password $DOCKER_PASSWORD'
+          sh 'docker login --username $DOCKER_USER --password $DOCKER_PASSWORD'
         }
 
     //build the container image and push it to the docker hub account
 
-        sh 'sudo docker build -t yanivro/hello-world --pull=true .'
+        sh 'docker build -t yanivro/hello-world --pull=true .'
 
-        sh 'sudo docker push yanivro/hello-world'
+        sh 'docker push yanivro/hello-world'
 //      }
 
  //   stage 'deploy' {
