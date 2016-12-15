@@ -3,13 +3,9 @@
 node {
 
 
-    stage 'checkout' {
-
-    git 'https://github.com/docker-training/webapp.git'
-
-    }
-
     stage 'build' {
+      git 'https://github.com/docker-training/webapp.git'
+
     //Authenticate with docker hub in order to push artifact into it
 
         withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'docker login',
