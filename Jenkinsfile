@@ -3,7 +3,7 @@
 node {
 
 
-    stage 'build' {
+   // stage 'build' {
       git 'https://github.com/docker-training/webapp.git'
 
     //Authenticate with docker hub in order to push artifact into it
@@ -19,9 +19,9 @@ node {
         sh 'sudo docker build -t yanivro/hello-world --pull=true .'
 
         sh 'sudo docker push yanivro/hello-world'
-      }
+//      }
 
-    stage 'deploy' {
+ //   stage 'deploy' {
     //Login to the kubernetes api and run the tunnle to the cluster on localhost:8001 for api calls
 
       withCredentials([file(credentialsId:	'google service account json', variable: GOOGLE_SA_KEY)]) {
@@ -33,7 +33,7 @@ node {
         sh 'curl http://localhost:8001/api/'
 
         }
-      }
+ //     }
 
 
 }
