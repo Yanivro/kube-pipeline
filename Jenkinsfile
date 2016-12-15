@@ -8,7 +8,7 @@ node {
 
     //Authenticate with docker hub in order to push artifact into it
 
-        withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'docker login',
+        withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: '459bf397-3910-4c22-8d0b-55107eadcbb5',
         usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASSWORD']]) {
 
           sh 'sudo docker login --username $DOCKER_USER --password $DOCKER_PASSWORD'
@@ -22,9 +22,9 @@ node {
 //      }
 
  //   stage 'deploy' {
-    //Login to the kubernetes api and run the tunnle to the cluster on localhost:8001 for api calls
+    //Login to the kubernetes api and run the tunnel to the cluster on localhost:8001 for api calls
 
-      withCredentials([file(credentialsId:	'google service account json', variable: GOOGLE_SA_KEY)]) {
+      withCredentials([file(credentialsId:	'6b2a4c4f-3265-4e20-93f4-1aa081620e32', variable: GOOGLE_SA_KEY)]) {
 
         sh 'gcloud auth activate-service-account --key-file=$GOOGLE_SA_KEY'
 
