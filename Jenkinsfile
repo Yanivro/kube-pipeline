@@ -5,6 +5,7 @@ node {
 
    // stage 'build' {
       git 'https://github.com/Yanivro/rapid-app.git'
+      gitCommit = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
 
     //Authenticate with docker hub in order to push artifact into it
 
@@ -25,7 +26,6 @@ node {
     //Login to the kubernetes api and run the tunnel to the cluster on localhost:8001 for api calls
 
       withCredentials([file(credentialsId:	'6b2a4c4f-3265-4e20-93f4-1aa081620e32', variable: 'GOOGLE_SA_KEY')]) {
-
         sh 'gcloud auth activate-service-account --key-file=$GOOGLE_SA_KEY'
 
         sh 'gcloud config set container/use_client_certificate True'
