@@ -1,11 +1,12 @@
-apiVersion: v1
-kind: ReplicationController
+apiVersion: extensions/v1beta1
+kind: Deployment
 metadata:
   name: app
   namespace: app
 spec:
   replicas: 2
   selector:
+   matchLabels:
     app: app
   template:
     metadata:
@@ -15,14 +16,13 @@ spec:
     spec:
       containers:
       - name: app
-        image: yanivro/hello-world:latest
+        command: ["nginx"]
+        image: yanivro/hello-rapid:latest
         ports:
-        - containerPort: 5000
-        readinessProbe:
+        - containerPort: 80
+        livenessProbe:
           httpGet:
-            path: /
-            port: 5000
-          periodSeconds: 10
-          timeoutSeconds: 5
-          successThreshold: 2
-          failureThreshold: 5
+            path: /index.html
+            port: 80
+          initialDelaySeconds: 30
+          timeoutSeconds: 2
