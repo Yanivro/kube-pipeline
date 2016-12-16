@@ -4,7 +4,7 @@ node {
 
 
    // stage 'build' {
-      git 'https://github.com/docker-training/webapp.git'
+      git 'https://github.com/Yanivro/rapid-app.git'
 
     //Authenticate with docker hub in order to push artifact into it
 
@@ -16,9 +16,9 @@ node {
 
     //build the container image and push it to the docker hub account
 
-        sh 'docker build -t yanivro/hello-world --pull=true .'
+        sh 'docker build -t yanivro/hello-rapid --pull=true .'
 
-        sh 'docker push yanivro/hello-world:latest'
+        sh 'docker push yanivro/hello-rapid:latest'
 //      }
 
  //   stage 'deploy' {
