@@ -17,4 +17,12 @@ spec:
       - name: app
         image: yanivro/hello-world:latest
         ports:
-        - containerPort: 80
+        - containerPort: 5000
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 5000
+          periodSeconds: 10
+          timeoutSeconds: 5
+          successThreshold: 2
+          failureThreshold: 5

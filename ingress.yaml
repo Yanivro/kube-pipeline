@@ -8,4 +8,4 @@ spec:
   - secretName: app-tls
   backend:
     serviceName: appservice
-    servicePort: 10000
+    servicePort: 80
