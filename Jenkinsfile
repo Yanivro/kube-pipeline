@@ -6,7 +6,7 @@ node {
    // stage 'build' {
       git 'https://github.com/Yanivro/rapid-app.git'
       gitCommit = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
-
+      sh 'echo $gitCommit'
     //Authenticate with docker hub in order to push artifact into it
 
         withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: '459bf397-3910-4c22-8d0b-55107eadcbb5',
