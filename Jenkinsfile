@@ -18,7 +18,7 @@ node {
 
         sh 'docker build -t yanivro/hello-world --pull=true .'
 
-        sh 'docker push yanivro/hello-world'
+        sh 'docker push yanivro/hello-world:latest'
 //      }
 
  //   stage 'deploy' {
