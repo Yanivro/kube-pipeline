@@ -15,7 +15,7 @@ node {
         }
     }
 
-    stage ('build') {
+    stage ('Build') {
     //build the container image and push it to the docker hub account
 
         sh 'docker build -t yanivro/hello-rapid:$BUILD_ID --pull=true .'
