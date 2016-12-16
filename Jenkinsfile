@@ -24,7 +24,7 @@ node {
  //   stage 'deploy' {
     //Login to the kubernetes api and run the tunnel to the cluster on localhost:8001 for api calls
 
-      withCredentials([[$class: 'file'(credentialsId:	'6b2a4c4f-3265-4e20-93f4-1aa081620e32', variable: 'GOOGLE_SA_KEY')]]) {
+      withCredentials([file(credentialsId:	'6b2a4c4f-3265-4e20-93f4-1aa081620e32', variable: 'GOOGLE_SA_KEY')]) {
 
         sh 'gcloud auth activate-service-account --key-file=$GOOGLE_SA_KEY'
 
