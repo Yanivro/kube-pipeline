@@ -16,7 +16,7 @@ node {
     }
 
     stage ('Build') {
-    //build the container image and push it to the docker hub account
+    //build the container image and push it to the docker hub account with a build_id tag
 
         sh 'docker build -t yanivro/hello-rapid:$BUILD_ID --pull=true .'
 
@@ -25,7 +25,7 @@ node {
 
 
     stage ('Deploy') {
-    //Login to the kubernetes api and run the tunnel to the cluster on localhost:8001 for api calls
+    //Login to the kubernetes api, set the correct cluster context and replace current app image.
 
       withCredentials([file(credentialsId:	'6b2a4c4f-3265-4e20-93f4-1aa081620e32', variable: 'GOOGLE_SA_KEY')]) {
 
