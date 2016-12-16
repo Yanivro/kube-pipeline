@@ -1,0 +1,11 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: app
+  namespace: app
+spec:
+  tls:
+  - secretName: app-tls
+  backend:
+    serviceName: app-service
+    servicePort: 10000
