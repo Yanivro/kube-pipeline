@@ -34,7 +34,7 @@ node {
 
             sh 'kubectl config current-context'
 
-            sh 'kubectl set image deployment/app app=yanivro/hello-rapid:$BUILD_ID--namespace=app'
+            sh 'kubectl set image deployment/app app=yanivro/hello-rapid:$BUILD_ID --namespace=app'
         }
         }
  //     }
