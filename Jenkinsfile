@@ -4,16 +4,17 @@ node {
 
 
     stage ('Checkout') {
+    //pull from git and Authenticate with docker hub
+
       git 'https://github.com/Yanivro/rapid-app.git'
 
-    //Authenticate with docker hub in order to push artifact into it
+      withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: '459bf397-3910-4c22-8d0b-55107eadcbb5',
+      usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASSWORD']]) {
 
-        withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: '459bf397-3910-4c22-8d0b-55107eadcbb5',
-        usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASSWORD']]) {
-
-          sh 'docker login --username $DOCKER_USER --password $DOCKER_PASSWORD'
+        sh 'docker login --username $DOCKER_USER --password $DOCKER_PASSWORD'
         }
     }
+
 
     stage ('Build') {
     //build the container image and push it to the docker hub account with a build_id tag
