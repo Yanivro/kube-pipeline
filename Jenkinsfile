@@ -7,7 +7,7 @@ node {
     //pull from git and Authenticate with docker hub
 
       git 'https://github.com/Yanivro/rapid-app.git'
-      sh "commit_id=$(git rev-parse --short HEAD)"
+      sh "commit_id='/$(git rev-parse --short HEAD)'"
       sh 'echo $commit_id'
       sh 'echo ${commit_id}'
       sh 'echo env.commit_id'
