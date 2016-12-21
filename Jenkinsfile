@@ -7,10 +7,10 @@ node {
     //pull from git and Authenticate with docker hub
 
       git 'https://github.com/Yanivro/rapid-app.git'
-      sh "commit_id='/$(git rev-parse --short HEAD)'"
-      sh 'echo $commit_id'
-      sh 'echo ${commit_id}'
-      sh 'echo env.commit_id'
+
+      //save commit id to file to access in later stage
+      sh "git rev-parse --short HEAD > .git/commit-id"
+
       withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: '459bf397-3910-4c22-8d0b-55107eadcbb5',
       usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASSWORD']]) {
 
@@ -22,9 +22,12 @@ node {
     stage ('Build') {
     //build the container image and push it to the docker hub account with a build_id tag
 
-        sh 'docker build -t yanivro/hello-rapid:$BUILD_ID --pull=true .'
+        //get commit id from file we saved earlier
+        COMMIT_ID = readFile('.git/commit-id')
 
-        sh 'docker push yanivro/hello-rapid:$BUILD_ID'
+        sh "docker build -t yanivro/hello-rapid:$COMMIT_ID --pull=true ."
+
+        sh "docker push yanivro/hello-rapid:$COMMIT_ID"
      }
 
 
@@ -41,7 +44,7 @@ node {
 
             sh 'kubectl config current-context'
 
-            sh 'kubectl set image deployment/app app=yanivro/hello-rapid:$BUILD_ID --namespace=app'
+            sh "kubectl set image deployment/app app=yanivro/hello-rapid:$COMMIT_ID --namespace=app"
         }
       }
     }
