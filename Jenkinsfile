@@ -7,7 +7,11 @@ node {
     //pull from git and Authenticate with docker hub
 
       git 'https://github.com/Yanivro/rapid-app.git'
-
+      sh "git rev-parse --short HEAD > .git/commit-id"
+      commit_id = readFile('.git/commit-id')
+      sh 'echo $commit_id'
+      sh 'echo ${commit_id}'
+      sh 'echo env.commit_id'
       withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: '459bf397-3910-4c22-8d0b-55107eadcbb5',
       usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASSWORD']]) {
 
