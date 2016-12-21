@@ -38,6 +38,9 @@ node {
 
         sh 'gcloud auth activate-service-account --key-file=$GOOGLE_SA_KEY'
 
+        //get commit id from file we saved earlier
+        COMMIT_ID = readFile('.git/commit-id')
+
         withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) {
 
             sh 'kubectl config use-context gke_smooth-league-152210_europe-west1-c_cluster-1'
