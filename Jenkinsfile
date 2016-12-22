@@ -8,7 +8,7 @@ node {
 
       git 'https://github.com/Yanivro/rapid-app.git'
 
-       //save commit id to file to access in later stage
+       //save commit id to file to access in later stage and remove newline from the file
         sh "git rev-parse --short HEAD > .git/commit-id-temp"
         sh  "tr -d '\n' < .git/commit-id-temp > .git/commit-id"
 
