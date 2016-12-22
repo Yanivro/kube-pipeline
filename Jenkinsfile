@@ -8,13 +8,14 @@ node {
 
       git 'https://github.com/Yanivro/rapid-app.git'
 
-      //save commit id to file to access in later stage
-      sh "git rev-parse --short HEAD > .git/commit-id"
+       //save commit id to file to access in later stage
+        sh "git rev-parse --short HEAD > .git/commit-id-temp"
+        sh  "tr -d '\n' < .git/commit-id-temp > .git/commit-id"
 
-      withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: '459bf397-3910-4c22-8d0b-55107eadcbb5',
-      usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASSWORD']]) {
+        withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: '459bf397-3910-4c22-8d0b-55107eadcbb5',
+        usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASSWORD']]) {
 
-        sh 'docker login --username $DOCKER_USER --password $DOCKER_PASSWORD'
+            sh 'docker login --username $DOCKER_USER --password $DOCKER_PASSWORD'
         }
     }
 
@@ -25,7 +26,7 @@ node {
         //get commit id from file we saved earlier
         COMMIT_ID = readFile('.git/commit-id')
 
-        sh "docker build -t yanivro/hello-rapid:$COMMIT_ID --pull=true ."
+        sh "docker build -t yanivro/hello-rapid:$COMMIT_ID --pull=true . "
 
         sh "docker push yanivro/hello-rapid:$COMMIT_ID"
      }
