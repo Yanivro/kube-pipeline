@@ -12,7 +12,7 @@ node {
         sh "git rev-parse --short HEAD > .git/commit-id-temp"
         sh  "tr -d '\n' < .git/commit-id-temp > .git/commit-id"
 
-        withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: '459bf397-3910-4c22-8d0b-55107eadcbb5',
+        withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'b7e17834-ab59-4eb3-ad04-b9518cca25a2',
         usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASSWORD']]) {
 
             sh 'docker login --username $DOCKER_USER --password $DOCKER_PASSWORD'
